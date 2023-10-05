@@ -1,0 +1,35 @@
+module.exports = {
+  up: (queryInterface) => queryInterface.bulkInsert('Boards', [
+    {
+      id: 0,
+      game: 0,
+      row1: null,
+      row2: null,
+      row3: null,
+      row4: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      id: 1,
+      game: 1,
+      row1: '1',
+      row2: '10',
+      row3: '50',
+      row4: '25',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      id: 2,
+      game: 2,
+      row1: null,
+      row2: null,
+      row3: null,
+      row4: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+  ]),
+  down: (queryInterface) => queryInterface.bulkDelete('Boards', null, {}),
+};

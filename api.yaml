@@ -1,0 +1,258 @@
+swagger: "2.0"
+info:
+  title: "API REST SopaipillasCibernéticasBackend"
+  version: "1.0.0"
+host: "localhost:3000"
+schemes:
+  - "http"
+paths:
+  /health:
+    get:
+      description: Verifies the health of the service
+      responses:
+        '200':
+          description: Service is up and running
+        '500':
+          description: "Internal server error"
+  /normalplay:
+    post:
+      description: Play a normal card
+      parameters: 
+        - name: cardToPlay
+          in: body
+          description: Card to be played
+          schema: 
+            type: object
+            required: 
+              - game 
+              - user
+              - card
+            properties:
+              game: 
+                type: integer
+              user:
+                type: integer
+              card:
+                type: integer         
+      responses:
+        '200':
+          description: Normal card played successfully
+        '400':
+          description: Bad request (returns 404 when card is not found)
+        '500':
+          description: Internal server error
+  /normalplay/game/{id}: 
+    get:
+      description: Get the current game state
+      parameters: 
+        - name: id
+          in: path
+          description: Game id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Game state retrieved successfully
+        '500':
+          description: Internal server error
+  /normalplay/round/{id}/{num}:
+    get:
+      description: Get the current round state
+      parameters: 
+        - name: id
+          in: path
+          description: Game id
+          required: true
+          type: string
+        - name: num
+          in: path
+          description: Round number
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Round state retrieved successfully
+        '500':
+          description: Internal server error
+  /board:
+    get:
+      description: Get all boards
+      responses:
+        '200':
+          description: Board state retrieved successfully
+        '500':
+          description: Internal server error
+        '400':
+          description: Bad request
+  /board/{id}:
+    get:
+      description: Get the current board state
+      parameters: 
+        - name: id
+          in: path
+          description: Board id (Game id)
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Board state retrieved successfully 
+        '500':
+          description: Internal server error
+        '400':
+          description: Bad request (returns 404 when board is not found)
+    put: 
+      description: Update the board state (assign cards, give points, advance round, etc ...)
+      parameters:
+        - name: id
+          in: path 
+          description: Board id (Game id)
+          required: true
+      responses:
+        '200':
+          description: Board state updated successfully
+        '500':
+          description: Internal server error
+        '400':
+          description: Bad request
+  /game:
+    get:
+      description: Get all the current games states
+      responses:
+        '200':
+          description: Game state retrieved successfully
+        '500':
+          description: Internal server error
+        '400':
+          description: Bad request
+    post:
+      description: Create a new game
+      parameters:
+        - name: game
+          in: body
+          description: Game to be created
+          schema: 
+            type: object
+            required: 
+              - player1
+            properties:
+              player1: 
+                type: integer
+      responses:
+        '200':
+          description: Game created successfully
+        '500':
+          description: Internal server error
+        '400':
+          description: Bad request
+  /game/{id}:
+    get:
+      description: Get the current game state
+      parameters: 
+        - name: id
+          in: path
+          description: Game id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Game state retrieved successfully 
+        '500':
+          description: Internal server error
+        '400':
+          description: Bad request (returns 404 when game is not found)
+    delete: 
+      description: Delete a game
+      parameters:
+        - name: id
+          in: path 
+          description: Game id
+          required: true
+      responses:
+        '200':
+          description: Game deleted successfully 
+        '500':
+          description: Internal server error
+        '400':
+          description: Bad request (returns 404 when game is not found)
+  /game/join:
+    put:
+      description: Joins to a random game
+      parameters:
+        - name: id 
+          in: body
+          description: Game to be joined
+          schema: 
+            type: object
+            required: 
+              - game
+              - player
+            properties:
+              game: 
+                type: integer
+              player:
+                type: integer
+      responses:
+        '200':
+          description: Game joined successfully 
+        '500':
+          description: Internal server error
+        '400':
+          description: Bad request (returns 403 when the is no games to be joined)
+  /game/join/{id}:
+    put:
+      description: Join a game
+      parameters: 
+        - name: id
+          in: path
+          description: Game id
+          required: true
+          type: string
+        - player2: id
+          in: body
+          description: Player to be joined to a game created before by a player1
+          schema: 
+            type: object
+            required: 
+              - player2
+            properties:
+              player2:
+                type: integer
+      responses:
+        '200':
+          description: Game joined successfully 
+        '500':
+          description: Internal server error
+        '400':
+          description: Bad request (returns 403 when only can join as spectator)
+  /game/start/{id}:
+    put:
+      description: Start a game
+      parameters: 
+        - name: id
+          in: path
+          description: Game id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Game started successfully
+        '500':
+          description: Internal server error
+        '400':
+          description: Bad request
+  /game/end/{id}:
+    put:
+      description: End a game
+      parameters: 
+        - name: id
+          in: path
+          description: Game id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Game ended successfully
+        '500':
+          description: Internal server error
+        '400':
+          description: Bad request

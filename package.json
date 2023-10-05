@@ -1,0 +1,47 @@
+{
+  "name": "ssiberneticas-backend",
+  "version": "1.0.0",
+  "description": "BackEnd de juego \"Toma-6\"",
+  "main": "index.js",
+  "repository": "git@github.com:IIC2513/grupo-SopaipillasCiberneticas-backend.git",
+  "author": "Dafne Arriagada, Alberto Agostini",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "@koa/cors": "^4.0.0",
+    "and": "^0.0.3",
+    "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
+    "jsonwebtoken": "^9.0.0",
+    "koa": "^2.14.2",
+    "koa-body": "^5.0.0",
+    "koa-jwt": "^4.0.3",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^12.0.0",
+    "koa-session": "^6.2.0",
+    "koa2-swagger-ui": "^5.8.0",
+    "mysql2": "^3.3.2",
+    "nodemon": "^2.0.22",
+    "pg": "^8.8.0",
+    "sequelize": "^6.31.1",
+    "sequelize-cli": "^6.5.1",
+    "swagger-ui-dist": "^4.19.0",
+    "swagger2": "^4.0.3",
+    "swagger2-koa": "^4.0.0",
+    "underscore": "^1.13.6"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "eslint": "^8.40.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "lint": "eslint ./src src/index.js",
+    "reset_db_dev": "cross-env NODE_ENV=development yarn sequelize db:drop && yarn sequelize db:create && yarn sequelize db:migrate && yarn sequelize db:seed:all",
+    "reset_db": "cross-env NODE_ENV=production yarn sequelize db:drop && cross-env NODE_ENV=production yarn sequelize db:create && cross-env NODE_ENV=production yarn sequelize db:migrate && cross-env NODE_ENV=production yarn sequelize db:seed:all",
+    "lint-fix": "eslint --fix ./src src/index.js"
+  }
+}

@@ -1,0 +1,35 @@
+module.exports = {
+  up: (queryInterface) => queryInterface.bulkInsert('Games', [
+    {
+      id: 0,
+      active: false,
+      done: false,
+      round: 1,
+      player1: 0,
+      player2: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      id: 1,
+      active: true,
+      done: false,
+      round: 1,
+      player1: 0,
+      player2: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      id: 2,
+      active: false,
+      done: false,
+      round: 1,
+      player1: 0,
+      player2: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+  ]),
+  down: (queryInterface) => queryInterface.bulkDelete('Games', null, {}),
+};
